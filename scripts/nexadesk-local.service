@@ -1,0 +1,17 @@
+[Unit]
+Description=NexaDesk local
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+WorkingDirectory=/home/th/Documents/Projetos/HelpDesk
+ExecStartPre=/usr/bin/pg_isready -h 127.0.0.1 -p 5432 -d nexadesk
+ExecStart=/home/th/.nvm/versions/node/v26.10.0/bin/node /home/th/Documents/Projetos/HelpDesk/node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3000
+Environment=NODE_ENV=production
+Restart=always
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target
